@@ -1,6 +1,6 @@
 import React from "react";
 import MTitle from "@components/MTitle";
-import MPaper from "@components/MPaper";
+// import MPaper from "@components/MPaper";
 import "@src/scss/Home.scss";
 
 export default function Home() {
@@ -129,10 +129,10 @@ export default function Home() {
             </div>
           ))}
         </div>
-        <MTitle title={MTitleList[1].title} desc={MTitleList[1].desc}></MTitle>
+        {/* <MTitle title={MTitleList[1].title} desc={MTitleList[1].desc}></MTitle>
         <div className="paper-container">
           <MPaper></MPaper>
-        </div>
+        </div> */}
       </div>
     </div>
   );
