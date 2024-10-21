@@ -18,6 +18,12 @@ const useStyles = makeStyles((theme: Theme) => ({
     flexGrow: 1,
     backgroundColor: theme.palette.background.paper,
   },
+  // TODO: 无效果？？
+  appBar: {
+    position: "fixed",
+    top: 0,
+    width: "100%",
+  },
 }));
 
 export default function MTabs() {
@@ -50,7 +56,7 @@ export default function MTabs() {
 
   return (
     <div className={classes.root}>
-      <AppBar position="static">
+      <AppBar className={classes.appBar}>
         <Tabs
           value={value}
           onChange={handleChange}
