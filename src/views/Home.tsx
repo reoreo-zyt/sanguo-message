@@ -10,6 +10,13 @@ export default function Home() {
   ];
   const GameList = [
     {
+      pic: "images/blank.png",
+      url: "images/J2ME-Loader.apk",
+      name: "J2ME",
+      version: "v1.7.9",
+      author: "游戏为JAVA游戏，请先下载模拟器游玩。",
+    },
+    {
       pic: "images/jz.jpg",
       url: "images/bwdl156.jar",
       name: "三国志霸王的大陆",
