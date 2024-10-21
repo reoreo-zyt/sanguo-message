@@ -35,7 +35,7 @@ export default function Home() {
                 </figure>
 
                 <button>
-                  <a href={"bwdl156.jar"} style={{ color: "#fff" }}>
+                  <a href={"images/bwdl156.jar"} style={{ color: "#fff" }}>
                     下载
                   </a>
                 </button>
@@ -74,7 +74,7 @@ export default function Home() {
                 </figure>
 
                 <button>
-                  <a href={"bwdl2.0.5.jar"} style={{ color: "#fff" }}>
+                  <a href={"images/bwdl2.0.5.jar"} style={{ color: "#fff" }}>
                     下载
                   </a>
                 </button>
@@ -113,7 +113,7 @@ export default function Home() {
                 </figure>
 
                 <button>
-                  <a href={"bwdl-zgc.jar"} style={{ color: "#fff" }}>
+                  <a href={"images/bwdl-zgc.jar"} style={{ color: "#fff" }}>
                     下载
                   </a>
                 </button>
