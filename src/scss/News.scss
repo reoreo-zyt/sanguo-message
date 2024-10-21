@@ -1,0 +1,30 @@
+@media screen and (width >=969px) {
+  /* stylelint-disable-next-line rule-empty-line-before */
+  .card-container2 {
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 60vh;
+
+    .card-list {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+  }
+}
+
+@media screen and (width >=360px) and (width <=969px) {
+  /* stylelint-disable-next-line rule-empty-line-before */
+  .card-container2 {
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+}
+
+.card-container2 .card-list .card-item {
+  margin: 10px 0;
+}

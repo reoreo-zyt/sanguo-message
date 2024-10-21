@@ -1,0 +1,25 @@
+.text-content {
+  margin: 15px 0;
+  color: #333;
+  outline: none;
+
+  &-span::before {
+    content: "";
+    border: 2px solid rgb(7 108 224);
+    margin-right: 4px;
+  }
+
+  &-span {
+    font-size: 1.25rem;
+  }
+
+  &-line {
+    font-size: 0.7rem;
+    margin: 0 3px;
+  }
+
+  &-dec {
+    font-size: 0.7rem;
+    color: #5d5c5c;
+  }
+}

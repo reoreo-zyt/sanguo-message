@@ -1,0 +1,77 @@
+/* stylelint-disable rule-empty-line-before */
+/* stylelint-disable selector-class-pattern */
+.paper-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.drinks__tags {
+  display: flex;
+  flex-flow: row wrap;
+  gap: 1rem 0.8rem;
+  color: #000;
+}
+.drinks__tag {
+  display: inline-block;
+  padding: 0.5rem 1rem;
+  margin: 0.5rem;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 1.2rem;
+  .drinks__tag--blue {
+    background-color: rgb(135 239 239);
+  }
+  .drinks__tag--green {
+    background-color: rgb(186 224 129);
+  }
+  .drinks__tag--orange {
+    background-color: rgb(223 143 87);
+  }
+  .drinks__tag--yellow {
+    background-color: rgb(219 181 84);
+  }
+  .drinks__tag--pink {
+    background-color: rgb(191 103 235);
+  }
+  .drinks__tag--red {
+    background-color: rgb(194 68 68);
+    color: #fff;
+  }
+  .drinks__tag--grey {
+    background-color: rgb(191 191 191);
+  }
+}
+.tag-inactive {
+  background-color: #eee;
+  color: #000;
+}
+
+@media screen and (width >=969px) {
+  .card-container2,
+  .card-container {
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    .card-list {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+  }
+}
+
+@media screen and (width >=360px) and (width <=969px) {
+  .card-container2 {
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+}
+
+.card-container2 .card-list .card-item {
+  margin: 10px 0;
+}
