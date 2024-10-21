@@ -124,7 +124,7 @@ export default function MPaper() {
       color: "#ff6464",
     },
   ];
-  const all_data2 = all_data.map((item, index) => ({
+  const all_data2 = all_data.map((item: { [x: string]: string }) => ({
     alt: "blank",
     src: "/images/blank.png",
     text: item["姓"] + item["名"],
@@ -135,7 +135,6 @@ export default function MPaper() {
       imgs: [],
     },
   }));
-  console.log(all_data2);
   // eslint-disable-next-line prefer-const
   let [images, setImages] = useState(all_data2);
   // eslint-disable-next-line prefer-const
@@ -165,10 +164,13 @@ export default function MPaper() {
       setImages([...all_data2]);
     } else {
       setImages([
-        ...images.filter((item) => item["书籍分类"] === tags[index]["name"]),
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        ...images.filter(
+          // eslint-disable-next-line @typescript-eslint/no-explicit-any
+          (item: any) => item["书籍分类"] === tags[index]["name"],
+        ),
       ]);
     }
-    console.log(images);
   };
 
   const handleClose = () => {

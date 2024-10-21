@@ -91,10 +91,6 @@ export default function Layout() {
       path: "/",
       name: "首页",
     },
-    {
-      path: "/contact",
-      name: "联系我们",
-    },
   ];
 
   const navigate = useNavigate();

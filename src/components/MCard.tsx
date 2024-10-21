@@ -49,7 +49,6 @@ type MCardBodyType = {
 export default function MCard({
   maxWidth = 1200 as number,
   imgUrl = "" as string,
-  imgTitle = "" as string,
   title = "" as string,
   body = [] as Array<MCardBodyType>,
   isShowButton = true as boolean,

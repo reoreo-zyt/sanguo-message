@@ -29,22 +29,6 @@ export default function MTabs() {
       path: "/",
       name: "首页",
     },
-    {
-      path: "/about",
-      name: "关于我们",
-    },
-    {
-      path: "/objects",
-      name: "产品中心",
-    },
-    {
-      path: "/news",
-      name: "新闻资讯",
-    },
-    {
-      path: "/contact",
-      name: "联系我们",
-    },
   ];
 
   const navigate = useNavigate();
