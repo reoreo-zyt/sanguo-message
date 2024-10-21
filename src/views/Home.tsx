@@ -24,6 +24,13 @@ export default function Home() {
       author: "END",
     },
     {
+      pic: "images/END.jpg",
+      url: "images/bwdl2.0.6.jar",
+      name: "三国志霸王的大陆2.0.6完美版",
+      version: "2.0.6",
+      author: "END",
+    },
+    {
       pic: "images/lt.jpg",
       url: "images/bwdl-zgc.jar",
       name: "三国志霸王的大陆战国策",
@@ -56,13 +63,6 @@ export default function Home() {
       url: "images/bwdl-50.jar",
       name: "三国志霸王的大陆五十君主",
       version: "未知",
-      author: "晏舟",
-    },
-    {
-      pic: "images/yz.jpg",
-      url: "images/bwdl2.0.6.jar",
-      name: "三国志霸王的大陆2.0.6完美版",
-      version: "2.0.6",
       author: "晏舟",
     },
     {
