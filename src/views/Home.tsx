@@ -13,7 +13,7 @@ export default function Home() {
     <div className="about">
       <div className="container">
         <MTitle title={MTitleList[0].title} desc={MTitleList[0].desc}></MTitle>
-        <div style={{ display: "flex", flex: 1 }}>
+        <div style={{ display: "flex", flex: 1, flexWrap: "wrap" }}>
           <div className="flip-card-container">
             <div className="flip-card">
               <div className="card-front">
