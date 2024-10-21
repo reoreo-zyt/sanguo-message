@@ -1,6 +1,6 @@
 ## 效果预览
 
-- [https://www.szyunhui.com.cn/](https://www.szyunhui.com.cn/)
+- [霸王的大陆JAVA版官网](https://www.sanguoclub.site/)
 
 ## 1、react 项目环境搭建
 
@@ -13,7 +13,3 @@
 ## 2、引入路由
 
 参考 [react18.0.0+ts路由配置](https://juejin.cn/post/7101448993133035550?searchId=20240703171802BD56F55D4228531F16D7)
-
-## 参考网站
-
-https://r360-mdemo.yz168.cc/?initsiteid=884&wapskin=r360&view=1&sitetype=1

@@ -10,9 +10,8 @@ import Typography from "@material-ui/core/Typography";
 import IconButton from "@material-ui/core/IconButton";
 import MenuIcon from "@material-ui/icons/Menu";
 import BottomNavigationAction from "@material-ui/core/BottomNavigationAction";
-import EmailIcon from "@material-ui/icons/Email";
-import LocationOnIcon from "@material-ui/icons/LocationOn";
 import PhoneIcon from "@material-ui/icons/Phone";
+import GitHubIcon from "@material-ui/icons/GitHub";
 import clsx from "clsx";
 import List from "@material-ui/core/List";
 import Divider from "@material-ui/core/Divider";
@@ -156,25 +155,24 @@ export default function Layout() {
           value={value}
           onChange={(event, newValue) => {
             setValue(newValue);
+            window.open("https://github.com/reoreo-zyt", "_blank"); // 在新标签页中打开网址
           }}
           showLabels
           className={classes.root}
         >
           <BottomNavigationAction
-            label="地址：xx市xx区xx镇"
-            icon={<LocationOnIcon />}
-            className={classes.action}
-          />
-          <BottomNavigationAction
-            label="电话：010-80000000"
+            label="q群：282419916"
             icon={<PhoneIcon />}
             className={classes.action}
           />
           <BottomNavigationAction
-            label="邮箱：@domain.com"
-            icon={<EmailIcon />}
+            label="项目github开源"
+            icon={<GitHubIcon />}
             className={classes.action}
           />
+          <button>
+            <a href="https://github.com/reoreo-zyt"></a>
+          </button>
         </BottomNavigation>
       </div>
       {/* 侧边栏 */}
