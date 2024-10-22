@@ -2,6 +2,10 @@ import React, { useState, useEffect } from "react";
 import { createStyles, makeStyles, Theme } from "@material-ui/core/styles";
 import Paper from "@material-ui/core/Paper";
 import "@src/scss/MPaper.scss";
+import Pagination from "@material-ui/lab/Pagination";
+import SearchIcon from "@material-ui/icons/Search";
+import { Button } from "@material-ui/core";
+import TextField from "@material-ui/core/TextField";
 import Dialog from "@material-ui/core/Dialog";
 import AppBar from "@material-ui/core/AppBar";
 import Toolbar from "@material-ui/core/Toolbar";
@@ -23,6 +27,22 @@ const useStyles = makeStyles((theme: Theme) =>
         width: "277px",
         height: "277px",
         margin: "8px 20px",
+      },
+    },
+    search: {
+      // width: "100vw",
+      display: "flex",
+      justifyContent: "center",
+      flexWrap: "wrap",
+    },
+    page: {
+      // display: "flex",
+      // justifyContent: "center",
+      "& > *": {
+        // width: "100vw",
+        // marginLeft: "30vw",
+        maxWidth: "80px",
+        // height: "80px",
       },
     },
     dialog: {
@@ -52,6 +72,8 @@ const useStyles = makeStyles((theme: Theme) =>
 );
 
 export default function MPaper() {
+  const [searchQuery, setSearchQuery] = useState("");
+  const [page, setPage] = React.useState(1);
   // eslint-disable-next-line prefer-const
   const classes = useStyles();
   // 使用useState来控制key值，即重新渲染的触发条件
@@ -103,6 +125,7 @@ export default function MPaper() {
       color: "#ff6464",
     },
   ];
+
   useEffect(() => {
     async function fetchData() {
       const response = await fetch("images/三国人物信息快速查询表.json");
@@ -154,6 +177,25 @@ export default function MPaper() {
     fetchData();
   }, []); // 空数组[]确保仅在组件挂载时执行一次
 
+  const handleSearch = (event: React.ChangeEvent<HTMLInputElement>) => {
+    // setSearchQuery(event.target.value);
+    console.log(searchQuery);
+    images = all_data;
+    setImages([
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      ...images.filter(
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        (item: any) => (item["姓"] + item["名"]).includes(searchQuery),
+      ),
+    ]);
+  };
+
+  const handleInputChange = (event: {
+    target: { value: React.SetStateAction<string> };
+  }) => {
+    setSearchQuery(event.target.value);
+  };
+
   const Transition = React.forwardRef(function Transition(
     props: TransitionProps & { children?: React.ReactElement },
     ref: React.Ref<unknown>,
@@ -173,6 +215,7 @@ export default function MPaper() {
   ) => {
     console.log(images, "==images==");
     console.log(all_data, "==all_data==");
+    setPage(1);
     if (tags[index]["name"] === "全部") {
       // images = all_data2;
       console.log(images, "==images==");
@@ -190,6 +233,11 @@ export default function MPaper() {
     }
   };
 
+  const handleChange = (event, value) => {
+    console.log(value);
+    setPage(value);
+  };
+
   const handleClose = () => {
     setOpen(false);
     key = 0;
@@ -198,7 +246,27 @@ export default function MPaper() {
 
   return (
     <div>
-      <div>共 {images.length} 人</div>
+      <form className={classes.search} noValidate autoComplete="off">
+        <TextField
+          id="outlined-search"
+          value={searchQuery}
+          onChange={handleInputChange}
+          label={"共" + images.length + "人"}
+          type="search"
+          variant="outlined"
+          InputProps={{
+            endAdornment: (
+              <Button
+                onClick={handleSearch}
+                variant="contained"
+                color="primary"
+              >
+                <SearchIcon></SearchIcon>
+              </Button>
+            ),
+          }}
+        />
+      </form>
       {tags.map((item, index) => {
         return (
           <p
@@ -211,119 +279,164 @@ export default function MPaper() {
           </p>
         );
       })}
-      <div
-        className={classes.root}
-        style={{ height: "100vh", maxHeight: "100vh", overflowY: "scroll" }}
-      >
-        {images.map((item, index) => (
-          <Paper
-            key={index}
-            className="paper"
-            elevation={3}
-            onMouseDown={(event) => handleClickOpen(event, index)}
+      <div style={{ display: "flex", flexWrap: "nowrap" }}>
+        <div className={classes.page}>
+          <Pagination
+            color="primary"
+            variant="outlined"
+            count={Math.ceil(images.length / 8)}
+            page={page}
+            onChange={handleChange}
+          />
+        </div>
+        <div>
+          <div
+            className={classes.root}
+            style={{ height: "59vh", maxHeight: "59vh", overflowY: "scroll" }}
           >
-            <img className="img" alt={item.alt} src={item.src} />
-            {
-              <div>
-                <div className="text" style={{ backgroundColor: item.color }}>
-                  {item.text}
-                </div>
-                <div className="desc_text">
-                  <div className="desc_text_item">
-                    <span className="desc_text_item_title">字：</span>
-                    <span className="desc_text_item_title">{item["字"]}</span>
+            {/* 1 (0, 7) 2 (8, 15) 3 (16, 23) 4 (24, 31) 5 (32, 39) 6 (40, 47) 7 (48, 55) 8 (56, 63) */}
+            {images.slice((page - 1) * 8, 8 * page).map((item, index) => (
+              <Paper
+                key={index}
+                className="paper"
+                elevation={3}
+                onMouseDown={(event) => handleClickOpen(event, index)}
+              >
+                <img className="img" alt={item.alt} src={item.src} />
+                {
+                  <div>
+                    <div
+                      className="text"
+                      style={{ backgroundColor: item.color }}
+                    >
+                      {item.text}
+                    </div>
+                    <div className="desc_text">
+                      <div className="desc_text_item">
+                        <span className="desc_text_item_title">字：</span>
+                        <span className="desc_text_item_title">
+                          {item["字"]}
+                        </span>
+                      </div>
+                      <div className="desc_text_item">
+                        <span className="desc_text_item_title">籍贯郡：</span>
+                        <span className="desc_text_item_title">
+                          {item["籍贯郡"]}
+                        </span>
+                      </div>
+                      <div className="desc_text_item">
+                        <span className="desc_text_item_title">籍贯县：</span>
+                        <span className="desc_text_item_title">
+                          {item["籍贯县"]}
+                        </span>
+                      </div>
+                      <div className="desc_text_item">
+                        <span className="desc_text_item_title">亲属：</span>
+                        <span className="desc_text_item_title">
+                          {item["亲属"]}
+                        </span>
+                      </div>
+                      <div className="desc_text_item">
+                        <span className="desc_text_item_title">师从：</span>
+                        <span className="desc_text_item_title">
+                          {item["师从"]}
+                        </span>
+                      </div>
+                      <div className="desc_text_item">
+                        <span className="desc_text_item_title">别称：</span>
+                        <span className="desc_text_item_title">
+                          {item["别称"]}
+                        </span>
+                      </div>
+                      <div className="desc_text_item">
+                        <span className="desc_text_item_title">县令/长：</span>
+                        <span className="desc_text_item_title">
+                          {item["县令/长"]}
+                        </span>
+                      </div>
+                      <div className="desc_text_item">
+                        <span className="desc_text_item_title">太守/相：</span>
+                        <span className="desc_text_item_title">
+                          {item["太守/相"]}
+                        </span>
+                      </div>
+                      <div className="desc_text_item">
+                        <span className="desc_text_item_title">
+                          刺史/州牧：
+                        </span>
+                        <span className="desc_text_item_title">
+                          {item["刺史/州牧"]}
+                        </span>
+                      </div>
+                      <div className="desc_text_item">
+                        <span className="desc_text_item_title">都尉：</span>
+                        <span className="desc_text_item_title">
+                          {item["都尉"]}
+                        </span>
+                      </div>
+                      <div className="desc_text_item">
+                        <span className="desc_text_item_title">校尉：</span>
+                        <span className="desc_text_item_title">
+                          {item["校尉"]}
+                        </span>
+                      </div>
+                      <div className="desc_text_item">
+                        <span className="desc_text_item_title">中郎将：</span>
+                        <span className="desc_text_item_title">
+                          {item["中郎将"]}
+                        </span>
+                      </div>
+                      <div className="desc_text_item">
+                        <span className="desc_text_item_title">将军：</span>
+                        <span className="desc_text_item_title">
+                          {item["将军"]}
+                        </span>
+                      </div>
+                      <div className="desc_text_item">
+                        <span className="desc_text_item_title">九卿：</span>
+                        <span className="desc_text_item_title">
+                          {item["九卿"]}
+                        </span>
+                      </div>
+                      <div className="desc_text_item">
+                        <span className="desc_text_item_title">三公：</span>
+                        <span className="desc_text_item_title">
+                          {item["三公"]}
+                        </span>
+                      </div>
+                      <div className="desc_text_item">
+                        <span className="desc_text_item_title">
+                          侍中/尚书：
+                        </span>
+                        <span className="desc_text_item_title">
+                          {item["侍中/尚书"]}
+                        </span>
+                      </div>
+                      <div className="desc_text_item">
+                        <span className="desc_text_item_title">爵位：</span>
+                        <span className="desc_text_item_title">
+                          {item["爵位"]}
+                        </span>
+                      </div>
+                      <div className="desc_text_item">
+                        <span className="desc_text_item_title">谥号：</span>
+                        <span className="desc_text_item_title">
+                          {item["谥号"]}
+                        </span>
+                      </div>
+                      <div className="desc_text_item">
+                        <span className="desc_text_item_title">来源：</span>
+                        <span className="desc_text_item_title">
+                          {item["来源"]}
+                        </span>
+                      </div>
+                    </div>
                   </div>
-                  <div className="desc_text_item">
-                    <span className="desc_text_item_title">籍贯郡：</span>
-                    <span className="desc_text_item_title">
-                      {item["籍贯郡"]}
-                    </span>
-                  </div>
-                  <div className="desc_text_item">
-                    <span className="desc_text_item_title">籍贯县：</span>
-                    <span className="desc_text_item_title">
-                      {item["籍贯县"]}
-                    </span>
-                  </div>
-                  <div className="desc_text_item">
-                    <span className="desc_text_item_title">亲属：</span>
-                    <span className="desc_text_item_title">{item["亲属"]}</span>
-                  </div>
-                  <div className="desc_text_item">
-                    <span className="desc_text_item_title">师从：</span>
-                    <span className="desc_text_item_title">{item["师从"]}</span>
-                  </div>
-                  <div className="desc_text_item">
-                    <span className="desc_text_item_title">别称：</span>
-                    <span className="desc_text_item_title">{item["别称"]}</span>
-                  </div>
-                  <div className="desc_text_item">
-                    <span className="desc_text_item_title">县令/长：</span>
-                    <span className="desc_text_item_title">
-                      {item["县令/长"]}
-                    </span>
-                  </div>
-                  <div className="desc_text_item">
-                    <span className="desc_text_item_title">太守/相：</span>
-                    <span className="desc_text_item_title">
-                      {item["太守/相"]}
-                    </span>
-                  </div>
-                  <div className="desc_text_item">
-                    <span className="desc_text_item_title">刺史/州牧：</span>
-                    <span className="desc_text_item_title">
-                      {item["刺史/州牧"]}
-                    </span>
-                  </div>
-                  <div className="desc_text_item">
-                    <span className="desc_text_item_title">都尉：</span>
-                    <span className="desc_text_item_title">{item["都尉"]}</span>
-                  </div>
-                  <div className="desc_text_item">
-                    <span className="desc_text_item_title">校尉：</span>
-                    <span className="desc_text_item_title">{item["校尉"]}</span>
-                  </div>
-                  <div className="desc_text_item">
-                    <span className="desc_text_item_title">中郎将：</span>
-                    <span className="desc_text_item_title">
-                      {item["中郎将"]}
-                    </span>
-                  </div>
-                  <div className="desc_text_item">
-                    <span className="desc_text_item_title">将军：</span>
-                    <span className="desc_text_item_title">{item["将军"]}</span>
-                  </div>
-                  <div className="desc_text_item">
-                    <span className="desc_text_item_title">九卿：</span>
-                    <span className="desc_text_item_title">{item["九卿"]}</span>
-                  </div>
-                  <div className="desc_text_item">
-                    <span className="desc_text_item_title">三公：</span>
-                    <span className="desc_text_item_title">{item["三公"]}</span>
-                  </div>
-                  <div className="desc_text_item">
-                    <span className="desc_text_item_title">侍中/尚书：</span>
-                    <span className="desc_text_item_title">
-                      {item["侍中/尚书"]}
-                    </span>
-                  </div>
-                  <div className="desc_text_item">
-                    <span className="desc_text_item_title">爵位：</span>
-                    <span className="desc_text_item_title">{item["爵位"]}</span>
-                  </div>
-                  <div className="desc_text_item">
-                    <span className="desc_text_item_title">谥号：</span>
-                    <span className="desc_text_item_title">{item["谥号"]}</span>
-                  </div>
-                  <div className="desc_text_item">
-                    <span className="desc_text_item_title">来源：</span>
-                    <span className="desc_text_item_title">{item["来源"]}</span>
-                  </div>
-                </div>
-              </div>
-            }
-          </Paper>
-        ))}
+                }
+              </Paper>
+            ))}
+          </div>
+        </div>
       </div>
       {open ? (
         <Dialog
