@@ -1,8 +1,50 @@
-import React from "react";
+import React, { useState } from "react";
 import MTitle from "@components/MTitle";
+import FontDownload from "@material-ui/icons/FontDownload";
+import TextViewer from "@components/TextViewer";
+import { createStyles, makeStyles, Theme } from "@material-ui/core/styles";
+import { Button } from "@material-ui/core";
+import Dialog from "@material-ui/core/Dialog";
 import "@src/scss/Home.scss";
+import AppBar from "@material-ui/core/AppBar";
+import Toolbar from "@material-ui/core/Toolbar";
+import IconButton from "@material-ui/core/IconButton";
+import Typography from "@material-ui/core/Typography";
+import CloseIcon from "@material-ui/icons/Close";
+import Slide from "@material-ui/core/Slide";
+import { TransitionProps } from "@material-ui/core/transitions";
 
 export default function Home() {
+  const useStyles = makeStyles((theme: Theme) =>
+    createStyles({
+      dialog: {
+        zIndex: -999,
+      },
+      appBar: {
+        position: "relative",
+      },
+      title: {
+        marginLeft: theme.spacing(2),
+        flex: 1,
+      },
+      content: {
+        width: "100%",
+      },
+      contentBox: {
+        display: "flex",
+        flexDirection: "column",
+        alignItems: "center",
+        justifyContent: "center",
+        height: "100%",
+      },
+      media: {
+        height: 140,
+      },
+    }),
+  );
+
+  const classes = useStyles();
+
   const MTitleList = [
     { title: "游戏下载", desc: "三国志霸王的大陆" },
     { title: "三国人物", desc: "从184黄巾起义到280东吴灭亡" },
@@ -14,6 +56,13 @@ export default function Home() {
       name: "J2ME",
       version: "v1.7.9",
       author: "游戏为JAVA游戏，请先下载模拟器游玩。",
+    },
+    {
+      pic: "images/blank.png",
+      url: "images/bwdl2.0.6-5drama.apk",
+      name: "三国志霸王的大陆2.0.6-5剧本",
+      version: "v2.0.6",
+      author: "晏舟，END",
     },
     {
       pic: "images/blank.png",
@@ -100,6 +149,32 @@ export default function Home() {
       author: "晏舟",
     },
   ];
+  const [open, setOpen] = React.useState(false);
+
+  const handleSearch = (event: React.ChangeEvent<HTMLInputElement>) => {
+    // setSearchQuery(event.target.value);
+    handleClickOpen();
+  };
+
+  // eslint-disable-next-line prefer-const
+  let [key, setKey] = useState(0);
+
+  const Transition = React.forwardRef(function Transition(
+    props: TransitionProps & { children?: React.ReactElement },
+    ref: React.Ref<unknown>,
+  ) {
+    return <Slide direction="up" ref={ref} {...props} />;
+  });
+
+  const handleClickOpen = () => {
+    setOpen(true);
+  };
+
+  const handleClose = () => {
+    setOpen(false);
+    key = 0;
+    setKey(key);
+  };
 
   return (
     <div className="about">
@@ -153,10 +228,47 @@ export default function Home() {
                   </div>
                 </div>
               </div>
+              <Button
+                onClick={handleSearch}
+                variant="contained"
+                color="primary"
+              >
+                <FontDownload></FontDownload>
+              </Button>
             </div>
           ))}
         </div>
       </div>
+      {open ? (
+        <Dialog
+          style={open ? { zIndex: 1300 } : { zIndex: -999 }}
+          fullScreen
+          open={open}
+          onClose={handleClose}
+          TransitionComponent={Transition}
+        >
+          <AppBar className={classes.appBar}>
+            <Toolbar>
+              <IconButton
+                edge="start"
+                color="inherit"
+                onClick={handleClose}
+                aria-label="close"
+              >
+                <CloseIcon />
+              </IconButton>
+              <Typography variant="h6" className={classes.title}>
+                修改文档
+              </Typography>
+            </Toolbar>
+          </AppBar>
+          <div className={classes.content}>
+            <div className={classes.contentBox}>
+              <TextViewer txtFileUrl="images/bwdl2.0.6-5drama.txt" />
+            </div>
+          </div>
+        </Dialog>
+      ) : null}
     </div>
   );
 }
