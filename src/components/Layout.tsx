@@ -129,7 +129,7 @@ export default function Layout() {
             >
               <MenuIcon />
             </IconButton>
-            <Typography variant="h6">三国</Typography>
+            <Typography variant="h6">霸王的大陆改版</Typography>
           </Toolbar>
         </AppBar>
       ) : (

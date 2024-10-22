@@ -17,6 +17,13 @@ export default function Home() {
       author: "游戏为JAVA游戏，请先下载模拟器游玩。",
     },
     {
+      pic: "images/blank.png",
+      url: "images/sanguo1.6.8.jar",
+      name: "三国志霸王的大陆经典版本",
+      version: "1.6.8",
+      author: "微笑",
+    },
+    {
       pic: "images/jz.jpg",
       url: "images/bwdl156.jar",
       name: "三国志霸王的大陆",
@@ -36,6 +43,13 @@ export default function Home() {
       name: "三国志霸王的大陆2.0.6完美版",
       version: "2.0.6",
       author: "END",
+    },
+    {
+      pic: "images/blank.png",
+      url: "images/bwdl169-sh.apk",
+      name: "三国志霸王的大陆水浒",
+      version: "v1.6.9",
+      author: "公子羽、一抹斜阳",
     },
     {
       pic: "images/lt.jpg",
@@ -66,11 +80,11 @@ export default function Home() {
       author: "蜀山剑圣",
     },
     {
-      pic: "images/yz.jpg",
+      pic: "images/yjk.jpg",
       url: "images/bwdl-50.jar",
       name: "三国志霸王的大陆五十君主",
       version: "未知",
-      author: "晏舟",
+      author: "一劍開天門",
     },
     {
       pic: "images/yz.jpg",
@@ -92,7 +106,14 @@ export default function Home() {
     <div className="about">
       <div className="container">
         <MTitle title={MTitleList[0].title} desc={MTitleList[0].desc}></MTitle>
-        <div style={{ display: "flex", flex: 1, flexWrap: "wrap" }}>
+        <div
+          style={{
+            display: "flex",
+            flex: 1,
+            flexWrap: "wrap",
+            justifyContent: "center",
+          }}
+        >
           {GameList.map((item, index) => (
             <div key={index} className="flip-card-container">
               <div className="flip-card">
