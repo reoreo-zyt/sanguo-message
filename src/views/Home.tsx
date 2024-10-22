@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import MTitle from "@components/MTitle";
 import FontDownload from "@material-ui/icons/FontDownload";
-import TextViewer from "@components/TextViewer";
+// import TextViewer from "@components/TextViewer";
 import { createStyles, makeStyles, Theme } from "@material-ui/core/styles";
 import { Button } from "@material-ui/core";
 import Dialog from "@material-ui/core/Dialog";
@@ -13,6 +13,7 @@ import Typography from "@material-ui/core/Typography";
 import CloseIcon from "@material-ui/icons/Close";
 import Slide from "@material-ui/core/Slide";
 import { TransitionProps } from "@material-ui/core/transitions";
+import FileViewer from "react-file-viewer";
 
 export default function Home() {
   const useStyles = makeStyles((theme: Theme) =>
@@ -31,11 +32,7 @@ export default function Home() {
         width: "100%",
       },
       contentBox: {
-        display: "flex",
-        flexDirection: "column",
-        alignItems: "center",
-        justifyContent: "center",
-        height: "100%",
+        height: "100vh",
       },
       media: {
         height: 140,
@@ -149,6 +146,11 @@ export default function Home() {
       author: "晏舟",
     },
   ];
+
+  const imageStyle = {
+    width: "50%", // 调整图片宽度为视口宽度的50%
+    height: "auto", // 高度自动调整以保持图片比例
+  };
   const [open, setOpen] = React.useState(false);
 
   const handleSearch = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -264,7 +266,12 @@ export default function Home() {
           </AppBar>
           <div className={classes.content}>
             <div className={classes.contentBox}>
-              <TextViewer txtFileUrl="images/bwdl2.0.6-5drama.txt" />
+              {/* <TextViewer txtFileUrl="images/bwdl2.0.6-5drama.txt" /> */}
+              <FileViewer
+                style={imageStyle}
+                fileType="xlsx" //文件类型
+                filePath={"images/bwdl2.0.6-5剧本.xlsx"} //文件地址（后台给返的二进制流也可以）
+              />
             </div>
           </div>
         </Dialog>

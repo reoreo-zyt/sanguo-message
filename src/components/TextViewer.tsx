@@ -18,7 +18,9 @@ const TxtViewer = ({ txtFileUrl }: { txtFileUrl: string }) => {
       );
   }, [txtFileUrl]);
 
-  return <div>{text}</div>;
+  return (
+    <div className="file-content" dangerouslySetInnerHTML={{ __html: text }} />
+  );
 };
 
 export default TxtViewer;
