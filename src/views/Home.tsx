@@ -56,7 +56,7 @@ export default function Home() {
     },
     {
       pic: "images/blank.png",
-      url: "images/bwdl2.0.6-5drama.apk",
+      url: "images/bwdl2.0.6-5drama.jar",
       name: "三国志霸王的大陆2.0.6-5剧本",
       version: "v2.0.6",
       author: "晏舟，END",
