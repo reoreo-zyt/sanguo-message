@@ -122,36 +122,19 @@ export default function Layout() {
 
   return (
     <div className="main">
-      {!isMobile ? (
-        <AppBar position="static">
-          <Toolbar>
-            <IconButton
-              onClick={toggleDrawer("left", true)}
-              edge="start"
-              color="inherit"
-              aria-label="menu"
-            >
-              <MenuIcon />
-            </IconButton>
-            <Typography variant="h6">霸王的大陆改版</Typography>
-          </Toolbar>
-        </AppBar>
-      ) : (
-        <div className="header">
-          <div className="nav">
-            <div className="title-header">
-              <div className="title-header-left">
-                <span className="title-header-left-spanL">Electronics</span>
-                <span className="title-header-left-spanR">Design</span>
-              </div>
-              <div className="title-header-right">TEL：400-8888-8888</div>
-            </div>
-            <div className="nav-links">
-              <MTabs></MTabs>
-            </div>
-          </div>
-        </div>
-      )}
+      <AppBar position="static">
+        <Toolbar>
+          <IconButton
+            onClick={toggleDrawer("left", true)}
+            edge="start"
+            color="inherit"
+            aria-label="menu"
+          >
+            <MenuIcon />
+          </IconButton>
+          <Typography variant="h6">霸王的大陆改版</Typography>
+        </Toolbar>
+      </AppBar>
       {/* 类似vue的router-view组件 */}
       <Outlet />
       <div className="footer">
