@@ -20,6 +20,14 @@ const routes = [
         ),
       },
       {
+        path: "/about",
+        element: (
+          <LazyImportComponent
+            lazyChildren={lazy(() => import("@src/views/About"))}
+          />
+        ),
+      },
+      {
         path: "/objects",
         element: (
           <LazyImportComponent

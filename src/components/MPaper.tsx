@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { createStyles, makeStyles, Theme } from "@material-ui/core/styles";
 import Paper from "@material-ui/core/Paper";
 import "@src/scss/MPaper.scss";
@@ -52,40 +52,19 @@ const useStyles = makeStyles((theme: Theme) =>
 );
 
 export default function MPaper() {
+  // eslint-disable-next-line prefer-const
   const classes = useStyles();
   // 使用useState来控制key值，即重新渲染的触发条件
   // eslint-disable-next-line prefer-const
   let [key, setKey] = useState(0);
+  // eslint-disable-next-line prefer-const
+  let [all_data, setAllData] = useState([]);
+  // eslint-disable-next-line prefer-const
+  let [images, setImages] = useState([]);
+  // eslint-disable-next-line prefer-const
+  let [clickIndex, setClickIndex] = useState(0);
 
-  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-  // @ts-ignore
-  const all_data = sanguo_data.slice(1, 4)[1];
-  for (let i = 0; i < all_data.length; i++) {
-    if (all_data[i]["来源"].slice(0, 1) == "魏") {
-      all_data[i]["书籍分类"] = "魏书";
-    }
-    if (all_data[i]["来源"].slice(0, 1) == "蜀") {
-      all_data[i]["书籍分类"] = "蜀书";
-    }
-    if (all_data[i]["来源"].slice(0, 1) == "吴") {
-      all_data[i]["书籍分类"] = "吴书";
-    }
-    if (all_data[i]["来源"].slice(0, 1) == "汉") {
-      all_data[i]["书籍分类"] = "后汉书";
-    }
-    if (all_data[i]["来源"].slice(0, 2) == "汉纪") {
-      all_data[i]["书籍分类"] = "后汉纪";
-    }
-    if (all_data[i]["来源"].slice(0, 1) == "资") {
-      all_data[i]["书籍分类"] = "资质通鉴";
-    }
-    if (all_data[i]["来源"].slice(0, 1) == "华") {
-      all_data[i]["书籍分类"] = "华阳国志";
-    }
-    if (all_data[i]["来源"].slice(0, 1) == "晋") {
-      all_data[i]["书籍分类"] = "晋书";
-    }
-  }
+  const [open, setOpen] = React.useState(false);
   const tags = [
     {
       name: "全部",
@@ -124,23 +103,56 @@ export default function MPaper() {
       color: "#ff6464",
     },
   ];
-  const all_data2 = all_data.map((item: { [x: string]: string }) => ({
-    alt: "blank",
-    src: "/images/blank.png",
-    text: item["姓"] + item["名"],
-    show: false,
-    color: tags.find((tag) => tag.name === item["书籍分类"])?.color,
-    ...item,
-    details: {
-      imgs: [],
-    },
-  }));
-  // eslint-disable-next-line prefer-const
-  let [images, setImages] = useState(all_data2);
-  // eslint-disable-next-line prefer-const
-  let [clickIndex, setClickIndex] = useState(0);
-
-  const [open, setOpen] = React.useState(false);
+  useEffect(() => {
+    async function fetchData() {
+      const response = await fetch("images/三国人物信息快速查询表.json");
+      const fetchedData = await response.json();
+      all_data = fetchedData[2];
+      for (let i = 0; i < fetchedData[2].length; i++) {
+        if (all_data[i]["来源"].slice(0, 1) == "魏") {
+          all_data[i]["书籍分类"] = "魏书";
+        }
+        if (all_data[i]["来源"].slice(0, 1) == "蜀") {
+          all_data[i]["书籍分类"] = "蜀书";
+        }
+        if (all_data[i]["来源"].slice(0, 1) == "吴") {
+          all_data[i]["书籍分类"] = "吴书";
+        }
+        if (all_data[i]["来源"].slice(0, 1) == "汉") {
+          all_data[i]["书籍分类"] = "后汉书";
+        }
+        if (all_data[i]["来源"].slice(0, 2) == "汉纪") {
+          all_data[i]["书籍分类"] = "后汉纪";
+        }
+        if (all_data[i]["来源"].slice(0, 1) == "资") {
+          all_data[i]["书籍分类"] = "资质通鉴";
+        }
+        if (all_data[i]["来源"].slice(0, 1) == "华") {
+          all_data[i]["书籍分类"] = "华阳国志";
+        }
+        if (all_data[i]["来源"].slice(0, 1) == "晋") {
+          all_data[i]["书籍分类"] = "晋书";
+        }
+      }
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      const data: any = all_data.map((item: { [x: string]: string }) => ({
+        alt: "blank",
+        src: "/images/blank.png",
+        text: item["姓"] + item["名"],
+        show: false,
+        color: tags.find((tag) => tag.name === item["书籍分类"])?.color,
+        ...item,
+        details: {
+          imgs: [],
+        },
+      }));
+      all_data = data;
+      setAllData(all_data);
+      setImages(data);
+      console.log(images, "==images==");
+    }
+    fetchData();
+  }, []); // 空数组[]确保仅在组件挂载时执行一次
 
   const Transition = React.forwardRef(function Transition(
     props: TransitionProps & { children?: React.ReactElement },
@@ -159,10 +171,15 @@ export default function MPaper() {
     event: React.ChangeEvent<object>,
     index: number,
   ) => {
-    images = all_data2;
+    console.log(images, "==images==");
+    console.log(all_data, "==all_data==");
     if (tags[index]["name"] === "全部") {
-      setImages([...all_data2]);
+      // images = all_data2;
+      console.log(images, "==images==");
+      console.log(all_data, "==all_data2==");
+      setImages(all_data);
     } else {
+      images = all_data;
       setImages([
         // eslint-disable-next-line @typescript-eslint/no-explicit-any
         ...images.filter(

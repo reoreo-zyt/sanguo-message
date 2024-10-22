@@ -90,6 +90,10 @@ export default function Layout() {
       path: "/",
       name: "首页",
     },
+    {
+      path: "/about",
+      name: "信息查询",
+    },
   ];
 
   const navigate = useNavigate();
