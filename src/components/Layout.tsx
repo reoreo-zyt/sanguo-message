@@ -1,7 +1,6 @@
 import React, { useEffect } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import { Outlet, useNavigate } from "react-router-dom";
-import MTabs from "@components/MTabs";
 import "@src/scss/Layout.scss";
 import BottomNavigation from "@material-ui/core/BottomNavigation";
 import AppBar from "@material-ui/core/AppBar";
@@ -18,9 +17,8 @@ import Divider from "@material-ui/core/Divider";
 import ListItem from "@material-ui/core/ListItem";
 import ListItemText from "@material-ui/core/ListItemText";
 import SwipeableDrawer from "@material-ui/core/SwipeableDrawer";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import globalSlice from "@src/store/global";
-import GlobalState from "@src/typings/store";
 
 const useStyles = makeStyles({
   list: {
@@ -45,8 +43,6 @@ type Anchor = "top" | "left" | "bottom" | "right";
 
 export default function Layout() {
   const { mobileFalse, mobileTure } = globalSlice.actions;
-
-  const isMobile = useSelector((state: GlobalState) => state.isMobile);
   const dispatch = useDispatch();
   const classes = useStyles();
   const [value, setValue] = React.useState(0);
@@ -92,7 +88,7 @@ export default function Layout() {
     },
     {
       path: "/about",
-      name: "信息查询",
+      name: "霸王的大陆",
     },
   ];
 
@@ -132,7 +128,7 @@ export default function Layout() {
           >
             <MenuIcon />
           </IconButton>
-          <Typography variant="h6">霸王的大陆改版</Typography>
+          <Typography variant="h6">三国</Typography>
         </Toolbar>
       </AppBar>
       {/* 类似vue的router-view组件 */}

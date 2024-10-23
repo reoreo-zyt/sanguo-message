@@ -15,7 +15,7 @@ const routes = [
         path: "/",
         element: (
           <LazyImportComponent
-            lazyChildren={lazy(() => import("@src/views/Home"))}
+            lazyChildren={lazy(() => import("@src/views/About"))}
           />
         ),
       },
@@ -23,7 +23,7 @@ const routes = [
         path: "/about",
         element: (
           <LazyImportComponent
-            lazyChildren={lazy(() => import("@src/views/About"))}
+            lazyChildren={lazy(() => import("@src/views/Home"))}
           />
         ),
       },

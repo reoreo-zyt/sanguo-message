@@ -1,6 +1,6 @@
 ## 效果预览
 
-- [霸王的大陆JAVA版官网](https://www.sanguoclub.site/)
+- [三国网站](https://www.sanguoclub.site/)
 
 ## 1、react 项目环境搭建
 

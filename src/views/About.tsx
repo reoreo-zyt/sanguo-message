@@ -5,7 +5,7 @@ import "@src/scss/Home.scss";
 
 export default function Home() {
   const MTitleList = [
-    { title: "游戏下载", desc: "三国志霸王的大陆" },
+    { title: "游戏下载", desc: "三国志霸王的大陆JAVA版本下载" },
     { title: "三国人物", desc: "从184黄巾起义到280东吴灭亡" },
   ];
 

@@ -43,7 +43,7 @@ export default function Home() {
   const classes = useStyles();
 
   const MTitleList = [
-    { title: "游戏下载", desc: "三国志霸王的大陆" },
+    { title: "游戏下载", desc: "三国志霸王的大陆JAVA版本下载" },
     { title: "三国人物", desc: "从184黄巾起义到280东吴灭亡" },
   ];
   const GameList = [
@@ -269,8 +269,8 @@ export default function Home() {
               {/* <TextViewer txtFileUrl="images/bwdl2.0.6-5drama.txt" /> */}
               <FileViewer
                 style={imageStyle}
-                fileType="xlsx" //文件类型
-                filePath={"images/bwdl2.0.6-5剧本.xlsx"} //文件地址（后台给返的二进制流也可以）
+                fileType="docx" //文件类型
+                filePath={"images/bwdl.docx"} //文件地址（后台给返的二进制流也可以）
               />
             </div>
           </div>
