@@ -14,8 +14,8 @@ import Typography from "@material-ui/core/Typography";
 import CloseIcon from "@material-ui/icons/Close";
 import Slide from "@material-ui/core/Slide";
 import { TransitionProps } from "@material-ui/core/transitions";
-import { PhotoProvider, PhotoView } from "react-photo-view";
 import "react-photo-view/dist/react-photo-view.css";
+import { ReactReader } from "react-reader";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -72,6 +72,7 @@ const useStyles = makeStyles((theme: Theme) =>
 );
 
 export default function MPaper() {
+  const [location, setLocation] = useState<string | number>(0);
   const [searchQuery, setSearchQuery] = useState("");
   const [page, setPage] = React.useState(1);
   // eslint-disable-next-line prefer-const
@@ -134,27 +135,35 @@ export default function MPaper() {
       for (let i = 0; i < fetchedData[2].length; i++) {
         if (all_data[i]["来源"].slice(0, 1) == "魏") {
           all_data[i]["书籍分类"] = "魏书";
+          all_data[i]["book"] = "/images/sanguo.epub";
         }
         if (all_data[i]["来源"].slice(0, 1) == "蜀") {
           all_data[i]["书籍分类"] = "蜀书";
+          all_data[i]["book"] = "/images/sanguo.epub";
         }
         if (all_data[i]["来源"].slice(0, 1) == "吴") {
           all_data[i]["书籍分类"] = "吴书";
+          all_data[i]["book"] = "/images/sanguo.epub";
         }
         if (all_data[i]["来源"].slice(0, 1) == "汉") {
           all_data[i]["书籍分类"] = "后汉书";
+          all_data[i]["book"] = "/images/houhan.epub";
         }
         if (all_data[i]["来源"].slice(0, 2) == "汉纪") {
           all_data[i]["书籍分类"] = "后汉纪";
+          all_data[i]["book"] = "/images/lhj.epub";
         }
         if (all_data[i]["来源"].slice(0, 1) == "资") {
           all_data[i]["书籍分类"] = "资质通鉴";
+          all_data[i]["book"] = "/images/zztj.epub";
         }
         if (all_data[i]["来源"].slice(0, 1) == "华") {
           all_data[i]["书籍分类"] = "华阳国志";
+          all_data[i]["book"] = "";
         }
         if (all_data[i]["来源"].slice(0, 1) == "晋") {
           all_data[i]["书籍分类"] = "晋书";
+          all_data[i]["book"] = "/images/js.epub";
         }
       }
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -444,7 +453,7 @@ export default function MPaper() {
           fullScreen
           open={open}
           onClose={handleClose}
-          TransitionComponent={Transition}
+          // TransitionComponent={Transition}
         >
           <AppBar className={classes.appBar}>
             <Toolbar>
@@ -457,24 +466,17 @@ export default function MPaper() {
                 <CloseIcon />
               </IconButton>
               <Typography variant="h6" className={classes.title}>
-                {images[clickIndex].text}
+                {images[clickIndex].text + " - " + images[clickIndex]["来源"]}
               </Typography>
             </Toolbar>
           </AppBar>
-          <div className={classes.content}>
-            <div className={classes.contentBox}>
-              <PhotoProvider>
-                {images[clickIndex].details?.imgs.map((item, index) => (
-                  <PhotoView src={item} key={index}>
-                    <img
-                      src={item}
-                      alt=""
-                      style={{ width: "50%", height: "50%" }}
-                    />
-                  </PhotoView>
-                ))}
-              </PhotoProvider>
-            </div>
+          <div style={{ height: "100vh" }}>
+            <ReactReader
+              url={images[clickIndex].book}
+              // url="/images/sanguo.epub"
+              location={location}
+              locationChanged={(epubcfi: string) => setLocation(epubcfi)}
+            />
           </div>
         </Dialog>
       ) : null}
